@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 
@@ -13,6 +13,12 @@ export const Login = () => {
   const [rememberMe, setRememberMe] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+  // Explicitly clear any initial browser credential autofill on load
+  useEffect(() => {
+    setEmail('');
+    setPassword('');
+  }, []);
 
   // Forgot password modal
   const [showForgotModal, setShowForgotModal] = useState(false);
@@ -152,7 +158,13 @@ export const Login = () => {
           )}
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-3.5">
+          <form onSubmit={handleSubmit} className="space-y-3.5" autoComplete="off">
+            {/* Hidden dummy fields to prevent aggressive browser credential auto-injection */}
+            <div className="sr-only opacity-0 pointer-events-none h-0 w-0 overflow-hidden" aria-hidden="true">
+              <input type="text" name="fake_atelier_user" tabIndex={-1} autoComplete="off" />
+              <input type="password" name="fake_atelier_pass" tabIndex={-1} autoComplete="off" />
+            </div>
+
             {/* Email Field */}
             <div className="space-y-1">
               <label className="block text-[11px] font-semibold uppercase tracking-wider text-black">
@@ -161,11 +173,12 @@ export const Login = () => {
               <div className="relative">
                 <input
                   type="text"
+                  name="atelier_account_user"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@example.com or admin"
                   required
-                  autoComplete="username"
+                  autoComplete="off"
                   className="w-full bg-[#FAF8F5] border border-neutral-300 focus:border-black focus:bg-white rounded-xl px-3.5 py-2.5 text-sm text-black placeholder-neutral-400 transition-colors focus:outline-none"
                 />
                 <div className="absolute right-3.5 top-1/2 -translate-y-1/2 text-neutral-400">
@@ -193,11 +206,12 @@ export const Login = () => {
               <div className="relative">
                 <input
                   type={showPassword ? 'text' : 'password'}
+                  name="atelier_account_secret"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your password"
                   required
-                  autoComplete="current-password"
+                  autoComplete="new-password"
                   className="w-full bg-[#FAF8F5] border border-neutral-300 focus:border-black focus:bg-white rounded-xl px-3.5 py-2.5 text-sm text-black placeholder-neutral-400 transition-colors focus:outline-none pr-10"
                 />
                 <button
@@ -258,7 +272,7 @@ export const Login = () => {
           </form>
 
           {/* Bottom Switch to Sign Up */}
-          <div className="pt-2 text-center border-t border-neutral-100 space-y-2.5">
+          <div className="pt-2 text-center border-t border-neutral-100">
             <p className="text-xs text-neutral-600 font-light">
               New to KODE X ATTIRE?{' '}
               <Link
@@ -269,37 +283,6 @@ export const Login = () => {
                 Create an account
               </Link>
             </p>
-
-            {/* Quick Demo Access Credentials */}
-            <div className="pt-1.5 border-t border-neutral-100/80">
-              <span className="text-[10px] uppercase font-bold tracking-wider text-neutral-400 block mb-1.5">
-                Quick Demo Access:
-              </span>
-              <div className="flex items-center justify-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEmail('alex.mercer@example.com');
-                    setPassword('Password123!');
-                  }}
-                  className="px-2.5 py-1 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 rounded-lg text-[11px] font-medium transition-colors"
-                  title="Auto-fill Demo Client account"
-                >
-                  👤 Client Demo
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEmail('admin@kodexattire.com');
-                    setPassword('admin');
-                  }}
-                  className="px-2.5 py-1 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 rounded-lg text-[11px] font-medium transition-colors"
-                  title="Auto-fill Atelier Director Admin account"
-                >
-                  ⚡ Admin Demo
-                </button>
-              </div>
-            </div>
           </div>
 
         </div>

@@ -92,14 +92,14 @@ export const AdminDashboard = () => {
     <div className="min-h-screen bg-[#0D0D0D] text-white flex flex-col font-sans selection:bg-brand-gold selection:text-black">
       
       {/* Top Header Bar - Structured & Aligned with Sidebar */}
-      <header className="sticky top-0 z-40 bg-[#141414] border-b border-neutral-800 h-16 sm:h-20 flex items-center justify-between px-3 sm:px-6 lg:px-0">
+      <header className="sticky top-0 z-40 bg-white border-b border-neutral-200 h-16 sm:h-20 flex items-center justify-between px-3 sm:px-6 lg:px-0 shadow-xs">
         
         {/* Left: Logo & Mobile Menu (w-64 on desktop to align directly with sidebar) */}
-        <div className="flex items-center gap-2 sm:gap-3 lg:w-64 lg:h-full lg:px-6 lg:border-r border-neutral-800 shrink-0">
+        <div className="flex items-center gap-2 sm:gap-3 lg:w-64 lg:h-full lg:px-6 lg:border-r border-neutral-200 shrink-0">
           <button
             type="button"
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="w-9 h-9 flex items-center justify-center text-neutral-400 hover:text-white lg:hidden rounded-lg hover:bg-neutral-800 transition-colors shrink-0"
+            className="w-9 h-9 flex items-center justify-center text-neutral-600 hover:text-black lg:hidden rounded-lg hover:bg-neutral-100 transition-colors shrink-0"
             aria-label="Toggle navigation drawer"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -108,10 +108,10 @@ export const AdminDashboard = () => {
           </button>
 
           <Link to="/" className="flex flex-col group justify-center">
-            <span className="font-sans font-bold text-sm sm:text-base lg:text-lg tracking-wider text-white uppercase group-hover:text-brand-gold transition-colors leading-tight">
+            <span className="font-sans font-bold text-sm sm:text-base lg:text-lg tracking-wider text-neutral-900 uppercase group-hover:text-brand-gold transition-colors leading-tight">
               KODE X ATTIRE
             </span>
-            <span className="text-[7.5px] sm:text-[8px] tracking-[0.25em] uppercase text-brand-gold font-medium leading-none mt-0.5">
+            <span className="text-[7.5px] sm:text-[8px] tracking-[0.25em] uppercase text-[#8F6A28] font-semibold leading-none mt-0.5">
               ATELIER ADMIN SUITE
             </span>
           </Link>
@@ -124,14 +124,14 @@ export const AdminDashboard = () => {
           <div className="hidden lg:flex items-center gap-3">
             <div className="flex items-center gap-2 text-xs">
               <span className="text-neutral-500 font-medium">Dashboard</span>
-              <span className="text-neutral-600">/</span>
-              <span className="text-white font-semibold capitalize">
+              <span className="text-neutral-400">/</span>
+              <span className="text-neutral-900 font-semibold capitalize">
                 {navItems.find((n) => n.id === activeTab)?.label || activeTab}
               </span>
             </div>
 
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               Live Storefront
             </span>
           </div>
@@ -141,7 +141,7 @@ export const AdminDashboard = () => {
             {/* Link to public storefront */}
             <Link
               to="/"
-              className="inline-flex items-center justify-center gap-1.5 h-8 px-2.5 sm:px-3 bg-neutral-900 hover:bg-neutral-800 border border-neutral-700/80 text-neutral-300 hover:text-white rounded-lg text-[11px] sm:text-xs uppercase tracking-wider transition-all font-medium shrink-0"
+              className="inline-flex items-center justify-center gap-1.5 h-8 px-2.5 sm:px-3 bg-neutral-100 hover:bg-neutral-200/80 border border-neutral-300 text-neutral-700 hover:text-black rounded-lg text-[11px] sm:text-xs uppercase tracking-wider transition-all font-medium shrink-0"
               title="Return to customer storefront"
             >
               <span>←</span>
@@ -153,18 +153,18 @@ export const AdminDashboard = () => {
             {!isAdmin ? (
               <button
                 onClick={loginAsAdmin}
-                className="h-8 px-2.5 sm:px-3 bg-brand-gold/20 hover:bg-brand-gold/30 text-brand-gold border border-brand-gold/40 rounded-lg text-[11px] sm:text-xs uppercase tracking-wider font-semibold transition-all shrink-0"
+                className="h-8 px-2.5 sm:px-3 bg-brand-gold/15 hover:bg-brand-gold/25 text-[#7A5A1E] border border-brand-gold/40 rounded-lg text-[11px] sm:text-xs uppercase tracking-wider font-semibold transition-all shrink-0"
               >
                 Enable Admin
               </button>
             ) : (
-              <div className="flex items-center gap-2 pl-1 sm:pl-2 sm:border-l border-neutral-800 shrink-0">
+              <div className="flex items-center gap-2 pl-1 sm:pl-2 sm:border-l border-neutral-200 shrink-0">
                 <div className="w-8 h-8 rounded-full bg-brand-gold text-black font-bold font-serif flex items-center justify-center text-xs shadow-sm shrink-0">
                   {user?.avatarInitials || 'AD'}
                 </div>
                 <div className="hidden md:block text-left">
-                  <div className="font-semibold text-white text-xs leading-tight truncate max-w-[120px]">{user?.fullName || 'Atelier Admin'}</div>
-                  <div className="text-[9.5px] text-brand-gold uppercase tracking-wider font-medium">Administrator</div>
+                  <div className="font-semibold text-neutral-900 text-xs leading-tight truncate max-w-[120px]">{user?.fullName || 'Atelier Admin'}</div>
+                  <div className="text-[9.5px] text-[#8F6A28] uppercase tracking-wider font-semibold">Administrator</div>
                 </div>
               </div>
             )}
@@ -175,7 +175,7 @@ export const AdminDashboard = () => {
                 logout();
                 navigate('/login');
               }}
-              className="w-8 h-8 flex items-center justify-center text-neutral-400 hover:text-rose-400 hover:bg-neutral-900 rounded-lg transition-colors shrink-0"
+              className="w-8 h-8 flex items-center justify-center text-neutral-500 hover:text-rose-600 hover:bg-neutral-100 rounded-lg transition-colors shrink-0"
               title="Sign Out"
               aria-label="Sign Out"
             >

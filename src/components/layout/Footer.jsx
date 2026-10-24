@@ -121,12 +121,6 @@ export const Footer = () => {
                   Account / Sign In
                 </Link>
               </li>
-              <li>
-                <Link to="/admin" className="hover:text-brand-gold text-brand-gold/80 transition-colors flex items-center gap-1.5 group font-medium">
-                  <span className="w-1 h-1 rounded-full bg-brand-gold" />
-                  Atelier Admin
-                </Link>
-              </li>
             </ul>
           </div>
 

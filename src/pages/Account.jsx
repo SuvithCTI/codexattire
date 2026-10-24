@@ -35,12 +35,14 @@ export const Account = () => {
           <div className="flex flex-col gap-3">
             <Link
               to="/login"
+              state={{ from: '/account' }}
               className="w-full py-3.5 bg-brand-black text-white hover:bg-neutral-800 text-xs uppercase tracking-widest font-medium rounded-lg transition-colors"
             >
               Sign In to Atelier
             </Link>
             <Link
               to="/signup"
+              state={{ from: '/account' }}
               className="w-full py-3.5 bg-brand-sand text-brand-black hover:bg-brand-beige text-xs uppercase tracking-widest font-medium rounded-lg transition-colors border border-brand-warmBeige"
             >
               Create an Account

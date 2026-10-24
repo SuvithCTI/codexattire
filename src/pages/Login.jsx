@@ -21,7 +21,7 @@ export const Login = () => {
   const [forgotSuccess, setForgotSuccess] = useState('');
   const [forgotError, setForgotError] = useState('');
 
-  const redirectPath = (location.state?.from && location.state.from !== '/account') ? location.state.from : '/';
+  const redirectPath = location.state?.from || '/account';
 
   // If already authenticated
   if (isAuthenticated && user) {
@@ -258,7 +258,7 @@ export const Login = () => {
           </form>
 
           {/* Bottom Switch to Sign Up */}
-          <div className="pt-1 text-center border-t border-neutral-100">
+          <div className="pt-2 text-center border-t border-neutral-100 space-y-2.5">
             <p className="text-xs text-neutral-600 font-light">
               New to KODE X ATTIRE?{' '}
               <Link
@@ -269,6 +269,37 @@ export const Login = () => {
                 Create an account
               </Link>
             </p>
+
+            {/* Quick Demo Access Credentials */}
+            <div className="pt-1.5 border-t border-neutral-100/80">
+              <span className="text-[10px] uppercase font-bold tracking-wider text-neutral-400 block mb-1.5">
+                Quick Demo Access:
+              </span>
+              <div className="flex items-center justify-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setEmail('alex.mercer@example.com');
+                    setPassword('Password123!');
+                  }}
+                  className="px-2.5 py-1 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 rounded-lg text-[11px] font-medium transition-colors"
+                  title="Auto-fill Demo Client account"
+                >
+                  👤 Client Demo
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setEmail('admin@kodexattire.com');
+                    setPassword('admin');
+                  }}
+                  className="px-2.5 py-1 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 rounded-lg text-[11px] font-medium transition-colors"
+                  title="Auto-fill Atelier Director Admin account"
+                >
+                  ⚡ Admin Demo
+                </button>
+              </div>
+            </div>
           </div>
 
         </div>

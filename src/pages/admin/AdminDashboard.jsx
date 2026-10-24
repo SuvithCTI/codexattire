@@ -91,15 +91,15 @@ export const AdminDashboard = () => {
   return (
     <div className="min-h-screen bg-[#0D0D0D] text-white flex flex-col font-sans selection:bg-brand-gold selection:text-black">
       
-      {/* Top Header Bar */}
-      <header className="sticky top-0 z-40 bg-[#141414]/95 backdrop-blur-md border-b border-neutral-800 h-16 sm:h-20 flex items-center justify-between px-4 sm:px-6 lg:px-8">
+      {/* Top Header Bar - Structured & Aligned with Sidebar */}
+      <header className="sticky top-0 z-40 bg-[#141414] border-b border-neutral-800 h-16 sm:h-20 flex items-center justify-between px-3 sm:px-6 lg:px-0">
         
-        {/* Left: Mobile hamburger & Logo */}
-        <div className="flex items-center gap-3">
+        {/* Left: Logo & Mobile Menu (w-64 on desktop to align directly with sidebar) */}
+        <div className="flex items-center gap-2 sm:gap-3 lg:w-64 lg:h-full lg:px-6 lg:border-r border-neutral-800 shrink-0">
           <button
             type="button"
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-2 text-neutral-400 hover:text-white lg:hidden"
+            className="w-9 h-9 flex items-center justify-center text-neutral-400 hover:text-white lg:hidden rounded-lg hover:bg-neutral-800 transition-colors shrink-0"
             aria-label="Toggle navigation drawer"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -107,65 +107,84 @@ export const AdminDashboard = () => {
             </svg>
           </button>
 
-          <Link to="/" className="flex flex-col group">
-            <span className="font-sans font-bold text-base sm:text-xl tracking-wider text-white uppercase group-hover:text-brand-gold transition-colors">
+          <Link to="/" className="flex flex-col group justify-center">
+            <span className="font-sans font-bold text-sm sm:text-base lg:text-lg tracking-wider text-white uppercase group-hover:text-brand-gold transition-colors leading-tight">
               KODE X ATTIRE
             </span>
-            <span className="text-[8px] sm:text-[9px] tracking-[0.28em] uppercase text-brand-gold font-medium">
+            <span className="text-[7.5px] sm:text-[8px] tracking-[0.25em] uppercase text-brand-gold font-medium leading-none mt-0.5">
               ATELIER ADMIN SUITE
             </span>
           </Link>
-
-          <span className="hidden md:inline-flex items-center gap-1.5 ml-4 px-2.5 py-1 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            Live Storefront
-          </span>
         </div>
 
-        {/* Right: Actions */}
-        <div className="flex items-center gap-3 sm:gap-4 text-xs">
-          {/* Link to public storefront */}
-          <Link
-            to="/"
-            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-neutral-300 hover:text-white rounded-xl text-xs uppercase tracking-wider transition-colors"
-          >
-            <span>←</span>
-            <span>View Storefront</span>
-          </Link>
-
-          {/* Quick Admin Auth helper pill if not logged in */}
-          {!isAdmin ? (
-            <button
-              onClick={loginAsAdmin}
-              className="px-3 py-1.5 bg-brand-gold/20 hover:bg-brand-gold/30 text-brand-gold border border-brand-gold/40 rounded-xl text-xs uppercase tracking-wider font-semibold transition-all"
-            >
-              Enable Admin Mode
-            </button>
-          ) : (
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-full bg-brand-gold text-black font-bold font-serif flex items-center justify-center text-xs">
-                {user?.avatarInitials || 'AD'}
-              </div>
-              <div className="hidden sm:block text-left">
-                <div className="font-semibold text-white text-xs">{user?.fullName || 'Atelier Admin'}</div>
-                <div className="text-[10px] text-brand-gold">Administrator</div>
-              </div>
+        {/* Center / Right: Main Header Bar Content */}
+        <div className="flex items-center justify-end lg:justify-between flex-1 h-full lg:px-8 gap-3 sm:gap-4 pl-2">
+          
+          {/* Active Section Breadcrumb & Status Indicator (Desktop only) */}
+          <div className="hidden lg:flex items-center gap-3">
+            <div className="flex items-center gap-2 text-xs">
+              <span className="text-neutral-500 font-medium">Dashboard</span>
+              <span className="text-neutral-600">/</span>
+              <span className="text-white font-semibold capitalize">
+                {navItems.find((n) => n.id === activeTab)?.label || activeTab}
+              </span>
             </div>
-          )}
 
-          {/* Sign Out */}
-          <button
-            onClick={() => {
-              logout();
-              navigate('/login');
-            }}
-            className="p-1.5 text-neutral-400 hover:text-rose-400 transition-colors"
-            title="Sign Out"
-          >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-            </svg>
-          </button>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              Live Storefront
+            </span>
+          </div>
+
+          {/* Right Action Controls - Uniform heights & perfect vertical centering */}
+          <div className="flex items-center gap-2 sm:gap-3 text-xs shrink-0">
+            {/* Link to public storefront */}
+            <Link
+              to="/"
+              className="inline-flex items-center justify-center gap-1.5 h-8 px-2.5 sm:px-3 bg-neutral-900 hover:bg-neutral-800 border border-neutral-700/80 text-neutral-300 hover:text-white rounded-lg text-[11px] sm:text-xs uppercase tracking-wider transition-all font-medium shrink-0"
+              title="Return to customer storefront"
+            >
+              <span>←</span>
+              <span className="hidden sm:inline">Storefront</span>
+              <span className="sm:hidden">Store</span>
+            </Link>
+
+            {/* Quick Admin Auth helper pill if not logged in */}
+            {!isAdmin ? (
+              <button
+                onClick={loginAsAdmin}
+                className="h-8 px-2.5 sm:px-3 bg-brand-gold/20 hover:bg-brand-gold/30 text-brand-gold border border-brand-gold/40 rounded-lg text-[11px] sm:text-xs uppercase tracking-wider font-semibold transition-all shrink-0"
+              >
+                Enable Admin
+              </button>
+            ) : (
+              <div className="flex items-center gap-2 pl-1 sm:pl-2 sm:border-l border-neutral-800 shrink-0">
+                <div className="w-8 h-8 rounded-full bg-brand-gold text-black font-bold font-serif flex items-center justify-center text-xs shadow-sm shrink-0">
+                  {user?.avatarInitials || 'AD'}
+                </div>
+                <div className="hidden md:block text-left">
+                  <div className="font-semibold text-white text-xs leading-tight truncate max-w-[120px]">{user?.fullName || 'Atelier Admin'}</div>
+                  <div className="text-[9.5px] text-brand-gold uppercase tracking-wider font-medium">Administrator</div>
+                </div>
+              </div>
+            )}
+
+            {/* Sign Out Button - exact 32x32px matching avatar */}
+            <button
+              onClick={() => {
+                logout();
+                navigate('/login');
+              }}
+              className="w-8 h-8 flex items-center justify-center text-neutral-400 hover:text-rose-400 hover:bg-neutral-900 rounded-lg transition-colors shrink-0"
+              title="Sign Out"
+              aria-label="Sign Out"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+            </button>
+          </div>
+
         </div>
 
       </header>

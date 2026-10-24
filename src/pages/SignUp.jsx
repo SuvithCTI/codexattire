@@ -19,7 +19,7 @@ export const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const redirectPath = (location.state?.from && location.state.from !== '/account') ? location.state.from : '/';
+  const redirectPath = location.state?.from || '/account';
 
   // Password strength evaluation
   const passwordStrength = useMemo(() => {

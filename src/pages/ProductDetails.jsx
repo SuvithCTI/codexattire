@@ -208,13 +208,13 @@ export const ProductDetails = () => {
                     Size Guide
                   </button>
                 </div>
-                <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
+                <div className="flex items-center gap-2 overflow-x-auto scrollbar-none pb-1">
                   {product.sizes.map((sz) => (
                     <button
                       key={sz}
                       type="button"
                       onClick={() => setSelectedSize(sz)}
-                      className={`py-3 text-xs font-semibold rounded-lg uppercase tracking-wider transition-all border ${
+                      className={`flex-1 min-w-[44px] sm:max-w-[80px] py-3 text-xs font-semibold rounded-lg uppercase tracking-wider transition-all border text-center shrink-0 sm:shrink ${
                         selectedSize === sz
                           ? 'bg-brand-black text-white border-brand-black shadow-sm'
                           : 'bg-white text-brand-dark border-brand-border hover:border-brand-charcoal'

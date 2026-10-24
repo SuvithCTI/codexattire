@@ -62,84 +62,84 @@ export const AdminOverview = ({
       </div>
 
       {/* KPI Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
         {/* KPI 1: Total Revenue */}
-        <div className="bg-[#141414] border border-neutral-800 rounded-2xl p-5 sm:p-6 space-y-3 hover:border-brand-gold/40 transition-all shadow-card">
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] uppercase tracking-wider font-semibold text-neutral-400">
+        <div className="bg-[#141414] border border-neutral-800 rounded-2xl p-4 sm:p-6 space-y-2 sm:space-y-3 hover:border-brand-gold/40 transition-all shadow-card flex flex-col justify-between">
+          <div className="flex items-center justify-between gap-1">
+            <span className="text-[9px] sm:text-[10px] uppercase tracking-wider font-semibold text-neutral-400 leading-tight">
               Total Gross Revenue
             </span>
-            <div className="w-8 h-8 rounded-full bg-brand-gold/15 text-brand-gold flex items-center justify-center text-xs">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-brand-gold/15 text-brand-gold flex items-center justify-center text-xs shrink-0">
               ₹
             </div>
           </div>
           <div className="space-y-0.5">
-            <div className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
+            <div className="text-xl sm:text-3xl font-serif font-bold text-white tracking-tight">
               {formatPrice(totalRevenue)}
             </div>
-            <div className="text-[11px] text-emerald-400 flex items-center gap-1 font-medium">
+            <div className="text-[10px] sm:text-[11px] text-emerald-400 flex items-center gap-1 font-medium flex-wrap">
               <span>↑ 18.4%</span>
-              <span className="text-neutral-500 font-light">vs previous 30 days</span>
+              <span className="text-neutral-500 font-light truncate">vs prev 30d</span>
             </div>
           </div>
         </div>
 
         {/* KPI 2: Total Orders */}
-        <div className="bg-[#141414] border border-neutral-800 rounded-2xl p-5 sm:p-6 space-y-3 hover:border-brand-gold/40 transition-all shadow-card">
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] uppercase tracking-wider font-semibold text-neutral-400">
+        <div className="bg-[#141414] border border-neutral-800 rounded-2xl p-4 sm:p-6 space-y-2 sm:space-y-3 hover:border-brand-gold/40 transition-all shadow-card flex flex-col justify-between">
+          <div className="flex items-center justify-between gap-1">
+            <span className="text-[9px] sm:text-[10px] uppercase tracking-wider font-semibold text-neutral-400 leading-tight">
               Dispatches & Orders
             </span>
-            <div className="w-8 h-8 rounded-full bg-sky-500/15 text-sky-400 flex items-center justify-center text-xs">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-sky-500/15 text-sky-400 flex items-center justify-center text-xs shrink-0">
               📦
             </div>
           </div>
           <div className="space-y-0.5">
-            <div className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
+            <div className="text-xl sm:text-3xl font-serif font-bold text-white tracking-tight">
               {orders.length}
             </div>
-            <div className="text-[11px] text-neutral-400 font-light">
-              <span className="text-amber-400 font-medium">{pendingOrders} active</span> in atelier queue
+            <div className="text-[10px] sm:text-[11px] text-neutral-400 font-light">
+              <span className="text-amber-400 font-medium">{pendingOrders} active</span> in atelier
             </div>
           </div>
         </div>
 
         {/* KPI 3: Products in Catalog */}
-        <div className="bg-[#141414] border border-neutral-800 rounded-2xl p-5 sm:p-6 space-y-3 hover:border-brand-gold/40 transition-all shadow-card">
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] uppercase tracking-wider font-semibold text-neutral-400">
+        <div className="bg-[#141414] border border-neutral-800 rounded-2xl p-4 sm:p-6 space-y-2 sm:space-y-3 hover:border-brand-gold/40 transition-all shadow-card flex flex-col justify-between">
+          <div className="flex items-center justify-between gap-1">
+            <span className="text-[9px] sm:text-[10px] uppercase tracking-wider font-semibold text-neutral-400 leading-tight">
               Active Merchandise
             </span>
-            <div className="w-8 h-8 rounded-full bg-emerald-500/15 text-emerald-400 flex items-center justify-center text-xs">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-emerald-500/15 text-emerald-400 flex items-center justify-center text-xs shrink-0">
               👕
             </div>
           </div>
           <div className="space-y-0.5">
-            <div className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
+            <div className="text-xl sm:text-3xl font-serif font-bold text-white tracking-tight">
               {products.length}
             </div>
-            <div className="text-[11px] text-neutral-400 font-light">
-              Across Men, Women & Bespoke Studio
+            <div className="text-[10px] sm:text-[11px] text-neutral-400 font-light truncate">
+              Men, Women & Studio
             </div>
           </div>
         </div>
 
         {/* KPI 4: Registered Customers */}
-        <div className="bg-[#141414] border border-neutral-800 rounded-2xl p-5 sm:p-6 space-y-3 hover:border-brand-gold/40 transition-all shadow-card">
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] uppercase tracking-wider font-semibold text-neutral-400">
+        <div className="bg-[#141414] border border-neutral-800 rounded-2xl p-4 sm:p-6 space-y-2 sm:space-y-3 hover:border-brand-gold/40 transition-all shadow-card flex flex-col justify-between">
+          <div className="flex items-center justify-between gap-1">
+            <span className="text-[9px] sm:text-[10px] uppercase tracking-wider font-semibold text-neutral-400 leading-tight">
               Registered Clients
             </span>
-            <div className="w-8 h-8 rounded-full bg-purple-500/15 text-purple-400 flex items-center justify-center text-xs">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-purple-500/15 text-purple-400 flex items-center justify-center text-xs shrink-0">
               👥
             </div>
           </div>
           <div className="space-y-0.5">
-            <div className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
+            <div className="text-xl sm:text-3xl font-serif font-bold text-white tracking-tight">
               {customers.length}
             </div>
-            <div className="text-[11px] text-brand-gold font-medium">
-              Noir Privé & Atelier Tiers
+            <div className="text-[10px] sm:text-[11px] text-brand-gold font-medium truncate">
+              Noir Privé & Atelier
             </div>
           </div>
         </div>

@@ -22,6 +22,16 @@ export const storage = {
       console.warn(`[storage] Error saving key "${key}":`, error);
       return false;
     }
+  },
+
+  remove: (key) => {
+    try {
+      window.localStorage.removeItem(`${STORAGE_PREFIX}${key}`);
+      return true;
+    } catch (error) {
+      console.warn(`[storage] Error removing key "${key}":`, error);
+      return false;
+    }
   }
 };
 

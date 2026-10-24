@@ -11,7 +11,6 @@ export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [expandedSection, setExpandedSection] = useState('men'); // 'men' | 'women' | null
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -57,20 +56,6 @@ export const Header = () => {
   ];
 
   const popularSearches = ['Shirts', 'T-Shirts', 'Kurta Sets', 'Jeans', 'Linen', 'Polo'];
-
-  const menSubCategories = [
-    { label: 'All Menswear', path: '/men' },
-    { label: 'Shirts', path: '/men?category=Shirts' },
-    { label: 'T-Shirts & Polos', path: '/men?category=T-Shirts' },
-    { label: 'Pants & Trousers', path: '/men?category=Pants' },
-  ];
-
-  const womenSubCategories = [
-    { label: 'All Womenswear', path: '/women' },
-    { label: 'Tops & Blouses', path: '/women?category=Tops' },
-    { label: 'Denim & Jeans', path: '/women?category=Jeans' },
-    { label: 'Kurta Sets', path: '/women?category=Kurta%20Sets' },
-  ];
 
   return (
     <>
@@ -139,11 +124,11 @@ export const Header = () => {
 
           {/* Right: Actions (Search, Profile, Admin, Cart) */}
           <div className="flex items-center gap-1.5 sm:gap-3 lg:gap-6 text-black">
-            {/* Search Trigger */}
+            {/* Search Trigger (Hidden in mobile view alone) */}
             <button
               type="button"
               onClick={() => setSearchOpen(!searchOpen)}
-              className={`p-2 rounded-full transition-colors ${
+              className={`hidden sm:flex p-2 rounded-full transition-colors ${
                 searchOpen ? 'bg-neutral-100 text-black' : 'text-black hover:text-gray-600'
               }`}
               aria-label="Search Catalog"
@@ -156,6 +141,7 @@ export const Header = () => {
             {/* Account / Profile Link */}
             <Link
               to={isAuthenticated ? '/account' : '/login'}
+              state={!isAuthenticated ? { from: '/account' } : undefined}
               className="p-1.5 hover:text-gray-600 transition-colors relative flex items-center"
               aria-label={isAuthenticated ? 'My Account' : 'Sign In or Sign Up'}
               title={isAuthenticated ? `Account: ${user?.fullName}` : 'Sign In or Sign Up'}
@@ -201,9 +187,9 @@ export const Header = () => {
           </div>
         </div>
 
-        {/* Enhanced Mobile Search Drawer / Expandable Bar */}
+        {/* Expandable Search Bar (desktop/tablet) */}
         {searchOpen && (
-          <div className="py-3 px-1 border-t border-gray-100 animate-fade-in space-y-2.5">
+          <div className="hidden sm:block py-3 px-1 border-t border-gray-100 animate-fade-in space-y-2.5">
             <form onSubmit={handleSearchSubmit} className="relative max-w-xl mx-auto flex items-center">
               <input
                 type="text"
@@ -333,61 +319,33 @@ export const Header = () => {
                   <span className="text-neutral-400 text-xs">→</span>
                 </NavLink>
 
-                {/* Menswear with Expandable Subcategories */}
-                <div className="rounded-xl overflow-hidden bg-neutral-50/60 border border-neutral-100">
-                  <button
-                    type="button"
-                    onClick={() => setExpandedSection(expandedSection === 'men' ? null : 'men')}
-                    className="w-full flex items-center justify-between px-3 py-2.5 text-xs font-semibold uppercase tracking-wider text-black"
-                  >
-                    <span>Menswear</span>
-                    <span className={`text-xs transition-transform ${expandedSection === 'men' ? 'rotate-90 text-brand-gold' : 'text-neutral-400'}`}>
-                      ▶
-                    </span>
-                  </button>
-                  {expandedSection === 'men' && (
-                    <div className="px-3 pb-2.5 pt-0.5 space-y-1 text-xs">
-                      {menSubCategories.map((sub) => (
-                        <Link
-                          key={sub.path}
-                          to={sub.path}
-                          onClick={() => setMobileMenuOpen(false)}
-                          className="block py-1.5 px-2 text-neutral-600 hover:text-black font-medium hover:bg-white rounded-lg transition-colors"
-                        >
-                          {sub.label}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                {/* Menswear */}
+                <NavLink
+                  to="/men"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={({ isActive }) =>
+                    `flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-colors ${
+                      isActive ? 'bg-neutral-100 text-black font-bold' : 'text-neutral-700 hover:bg-neutral-50'
+                    }`
+                  }
+                >
+                  <span>Menswear</span>
+                  <span className="text-neutral-400 text-xs">→</span>
+                </NavLink>
 
-                {/* Womenswear with Expandable Subcategories */}
-                <div className="rounded-xl overflow-hidden bg-neutral-50/60 border border-neutral-100">
-                  <button
-                    type="button"
-                    onClick={() => setExpandedSection(expandedSection === 'women' ? null : 'women')}
-                    className="w-full flex items-center justify-between px-3 py-2.5 text-xs font-semibold uppercase tracking-wider text-black"
-                  >
-                    <span>Womenswear</span>
-                    <span className={`text-xs transition-transform ${expandedSection === 'women' ? 'rotate-90 text-brand-gold' : 'text-neutral-400'}`}>
-                      ▶
-                    </span>
-                  </button>
-                  {expandedSection === 'women' && (
-                    <div className="px-3 pb-2.5 pt-0.5 space-y-1 text-xs">
-                      {womenSubCategories.map((sub) => (
-                        <Link
-                          key={sub.path}
-                          to={sub.path}
-                          onClick={() => setMobileMenuOpen(false)}
-                          className="block py-1.5 px-2 text-neutral-600 hover:text-black font-medium hover:bg-white rounded-lg transition-colors"
-                        >
-                          {sub.label}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                {/* Womenswear */}
+                <NavLink
+                  to="/women"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={({ isActive }) =>
+                    `flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-colors ${
+                      isActive ? 'bg-neutral-100 text-black font-bold' : 'text-neutral-700 hover:bg-neutral-50'
+                    }`
+                  }
+                >
+                  <span>Womenswear</span>
+                  <span className="text-neutral-400 text-xs">→</span>
+                </NavLink>
 
                 {/* Bespoke Studio */}
                 <NavLink
@@ -478,6 +436,7 @@ export const Header = () => {
                 <div className="grid grid-cols-2 gap-2">
                   <Link
                     to="/login"
+                    state={{ from: '/account' }}
                     onClick={() => setMobileMenuOpen(false)}
                     className="py-2.5 text-center bg-black text-white rounded-lg text-xs uppercase tracking-wider font-semibold active:scale-95 transition-transform shadow-xs"
                   >
@@ -485,6 +444,7 @@ export const Header = () => {
                   </Link>
                   <Link
                     to="/signup"
+                    state={{ from: '/account' }}
                     onClick={() => setMobileMenuOpen(false)}
                     className="py-2.5 text-center bg-brand-sand border border-brand-warmBeige text-black rounded-lg text-xs uppercase tracking-wider font-semibold active:scale-95 transition-transform"
                   >

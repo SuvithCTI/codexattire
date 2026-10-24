@@ -113,7 +113,7 @@ export const AuthProvider = ({ children }) => {
     if (user) {
       storage.set('auth_user', user);
     } else {
-      window.localStorage.removeItem('kode_x_attire_auth_user');
+      storage.remove('auth_user');
     }
   }, [user]);
 
@@ -219,6 +219,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     const firstName = user?.fullName?.split(' ')[0] || 'User';
     setUser(null);
+    storage.remove('auth_user');
     triggerNotification(`Signed out successfully. Have a great day, ${firstName}!`, 'info');
   };
 
